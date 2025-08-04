@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": "static",
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "juriste-virtuel",
+          "region": "us-central1"
+        }
+      }
+    ]
+  }
+}
