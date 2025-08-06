@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a365d"/>
+      <stop offset="100%" style="stop-color:#2d4a5e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="url(#bgGrad)"/>
+  
+  <!-- Simplified scale -->
+  <g transform="translate(16, 16)">
+    <!-- Pole -->
+    <rect x="-0.5" y="-12" width="1" height="20" fill="#b8860b"/>
+    
+    <!-- Beam -->
+    <rect x="-10" y="-10" width="20" height="1" fill="#b8860b"/>
+    
+    <!-- Scale pans -->
+    <ellipse cx="-7" cy="-8" rx="3" ry="1" fill="#b8860b"/>
+    <ellipse cx="7" cy="-8" rx="3" ry="1" fill="#b8860b"/>
+    
+    <!-- Suspension -->
+    <line x1="-7" y1="-9" x2="-7" y2="-10" stroke="#b8860b" stroke-width="0.5"/>
+    <line x1="7" y1="-9" x2="7" y2="-10" stroke="#b8860b" stroke-width="0.5"/>
+  </g>
+</svg>
