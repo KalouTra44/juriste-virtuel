@@ -3,90 +3,508 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juriste Virtuel</title>
+    <title>Juriste Virtuel - Assistant Juridique IA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px auto;
-            padding: 0 20px;
-            max-width: 800px;
-            line-height: 1.5;
-            color: #333;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        h1 {
-            color: #2c3e50;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.8rem;
             margin-bottom: 10px;
         }
-        textarea {
+
+        .card-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .chat-container {
+            padding: 30px;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .question-input {
             width: 100%;
-            padding: 10px;
+            min-height: 120px;
+            padding: 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
             font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            font-family: inherit;
             resize: vertical;
+            transition: border-color 0.3s ease;
         }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            color: #fff;
-            background-color: #007bff;
+
+        .question-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .send-button {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
             border: none;
-            border-radius: 4px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        button:hover {
-            background-color: #0069d9;
+
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
         }
-        #messages {
-            margin-top: 20px;
+
+        .send-button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .response-section {
+            border-top: 1px solid #e1e8ed;
+            padding-top: 30px;
+        }
+
+        .chat-history {
+            margin-bottom: 20px;
+        }
+
+        .chat-message {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .chat-message.user {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            margin-left: 20px;
+        }
+
+        .chat-message.assistant {
+            background: #f1f8e9;
+            border-left: 4px solid #4caf50;
+            margin-right: 20px;
+        }
+
+        .chat-message .message-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .chat-message .message-header i {
+            margin-right: 8px;
+        }
+
+        .chat-message.user .message-header {
+            color: #1976d2;
+        }
+
+        .chat-message.assistant .message-header {
+            color: #388e3c;
+        }
+
+        .chat-message .message-content {
             white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .response-box {
             background: #f8f9fa;
             border: 1px solid #e9ecef;
-            border-radius: 4px;
-            padding: 15px;
-            min-height: 120px;
+            border-radius: 10px;
+            padding: 25px;
+            min-height: 150px;
+            white-space: pre-wrap;
+            font-size: 1rem;
+            line-height: 1.6;
+            display: none;
         }
-        #error {
-            color: #dc3545;
-            margin-top: 10px;
+
+        .response-box.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .clear-history {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .clear-history:hover {
+            background: #5a6268;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .error-message {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .disclaimer {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .disclaimer strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .card-header, .chat-container {
+                padding: 20px;
+            }
+
+            .question-input {
+                min-height: 100px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Juriste Virtuel</h1>
-    <p>Posez vos questions juridiques ci‑dessous :</p>
-    <textarea id="question" rows="4"></textarea><br>
-    <button id="send">Envoyer</button>
-    <p id="error"></p>
-    <div id="messages"></div>
-<script>
-document.getElementById('send').addEventListener('click', async function() {
-    const question = document.getElementById('question').value.trim();
-    const errorElem = document.getElementById('error');
-    const messagesElem = document.getElementById('messages');
-    errorElem.textContent = '';
-    messagesElem.textContent = '';
-    if (!question) {
-        errorElem.textContent = 'Veuillez saisir une question.';
-        return;
-    }
-    try {
-        const response = await fetch('/ask', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({question})
-        });
-        const data = await response.json();
-        if (data.error) {
-            errorElem.textContent = data.error;
-        } else {
-            messagesElem.textContent = data.answer;
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-balance-scale"></i> Juriste Virtuel</h1>
+            <p class="subtitle">Assistant Juridique Intelligent - Conseils et Informations Juridiques</p>
+        </header>
+
+        <div class="main-card">
+            <div class="card-header">
+                <h2><i class="fas fa-comments"></i> Posez votre question juridique</h2>
+                <p>Notre assistant IA vous fournira des informations juridiques générales</p>
+            </div>
+
+            <div class="chat-container">
+                <div class="input-section">
+                    <div class="input-group">
+                        <textarea 
+                            id="question" 
+                            class="question-input"
+                            placeholder="Décrivez votre situation juridique ou posez votre question... (ex: Quels sont mes droits en cas de licenciement abusif ?)"
+                            rows="5"
+                        ></textarea>
+                    </div>
+                    <button id="send" class="send-button">
+                        <i class="fas fa-paper-plane"></i>
+                        Envoyer ma question
+                    </button>
+                </div>
+
+                <div id="error" class="error-message"></div>
+
+                <div class="response-section">
+                    <div id="loading" class="loading" style="display: none;">
+                        <i class="fas fa-spinner"></i>
+                        Analyse de votre question en cours...
+                    </div>
+                    <button id="clear-history" class="clear-history" style="display: none;">
+                        <i class="fas fa-trash"></i> Effacer l'historique
+                    </button>
+                    <div id="chat-history" class="chat-history"></div>
+                    <div id="messages" class="response-box"></div>
+                </div>
+
+                <div class="disclaimer">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Avertissement Important :</strong>
+                    Les informations fournies par cet assistant sont à titre informatif uniquement et ne constituent pas des conseils juridiques professionnels. Pour des situations juridiques spécifiques, consultez toujours un avocat qualifié.
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>
+                <a href="/privacy_policy"><i class="fas fa-shield-alt"></i> Politique de Confidentialité</a>
+                <a href="/legal_notice"><i class="fas fa-gavel"></i> Mentions Légales</a>
+                <a href="/terms"><i class="fas fa-file-contract"></i> Conditions d'Utilisation</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                © 2024 Juriste Virtuel - Technologie d'Intelligence Artificielle
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        const questionInput = document.getElementById('question');
+        const sendButton = document.getElementById('send');
+        const errorElem = document.getElementById('error');
+        const messagesElem = document.getElementById('messages');
+        const loadingElem = document.getElementById('loading');
+        const chatHistoryElem = document.getElementById('chat-history');
+        const clearHistoryBtn = document.getElementById('clear-history');
+
+        // Historique des conversations stocké localement
+        let chatHistory = JSON.parse(localStorage.getItem('juriste_chat_history')) || [];
+
+        // Fonction pour afficher/masquer les éléments
+        function showElement(element) {
+            element.classList.add('show');
         }
-    } catch (e) {
-        errorElem.textContent = 'Erreur de communication avec le serveur.';
-    }
-});
-</script>
+
+        function hideElement(element) {
+            element.classList.remove('show');
+        }
+
+        // Fonction pour sauvegarder l'historique
+        function saveHistory() {
+            localStorage.setItem('juriste_chat_history', JSON.stringify(chatHistory));
+        }
+
+        // Fonction pour ajouter un message à l'historique
+        function addToHistory(question, answer) {
+            const timestamp = new Date().toLocaleString('fr-FR');
+            chatHistory.push({
+                question: question,
+                answer: answer,
+                timestamp: timestamp
+            });
+            saveHistory();
+            renderHistory();
+        }
+
+        // Fonction pour afficher l'historique
+        function renderHistory() {
+            if (chatHistory.length === 0) {
+                chatHistoryElem.innerHTML = '';
+                clearHistoryBtn.style.display = 'none';
+                return;
+            }
+
+            clearHistoryBtn.style.display = 'block';
+            chatHistoryElem.innerHTML = chatHistory.map(item => `
+                <div class="chat-message user">
+                    <div class="message-header">
+                        <i class="fas fa-user"></i>
+                        Votre question (${item.timestamp})
+                    </div>
+                    <div class="message-content">${item.question}</div>
+                </div>
+                <div class="chat-message assistant">
+                    <div class="message-header">
+                        <i class="fas fa-robot"></i>
+                        Réponse du Juriste Virtuel
+                    </div>
+                    <div class="message-content">${item.answer}</div>
+                </div>
+            `).join('');
+        }
+
+        // Fonction pour nettoyer l'interface
+        function clearMessages() {
+            hideElement(errorElem);
+            hideElement(messagesElem);
+            errorElem.textContent = '';
+            messagesElem.textContent = '';
+        }
+
+        // Fonction pour désactiver/activer le bouton
+        function setButtonState(disabled) {
+            sendButton.disabled = disabled;
+            if (disabled) {
+                sendButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+            } else {
+                sendButton.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer ma question';
+            }
+        }
+
+        // Gestionnaire d'événement pour l'envoi
+        sendButton.addEventListener('click', async function() {
+            const question = questionInput.value.trim();
+            
+            clearMessages();
+            
+            if (!question) {
+                errorElem.textContent = 'Veuillez saisir une question avant d\'envoyer.';
+                showElement(errorElem);
+                return;
+            }
+
+            setButtonState(true);
+            loadingElem.style.display = 'block';
+
+            try {
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({question})
+                });
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    errorElem.textContent = data.error;
+                    showElement(errorElem);
+                } else {
+                    messagesElem.textContent = data.answer;
+                    showElement(messagesElem);
+                    // Ajouter à l'historique
+                    addToHistory(question, data.answer);
+                    // Vider le champ de question
+                    questionInput.value = '';
+                }
+            } catch (e) {
+                errorElem.textContent = 'Erreur de communication avec le serveur. Veuillez réessayer.';
+                showElement(errorElem);
+            } finally {
+                setButtonState(false);
+                loadingElem.style.display = 'none';
+            }
+        });
+
+        // Gestionnaire pour effacer l'historique
+        clearHistoryBtn.addEventListener('click', function() {
+            if (confirm('Êtes-vous sûr de vouloir effacer tout l\'historique des conversations ?')) {
+                chatHistory = [];
+                saveHistory();
+                renderHistory();
+            }
+        });
+
+        // Permettre l'envoi avec Ctrl+Entrée
+        questionInput.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+
+        // Initialiser l'interface
+        renderHistory();
+        questionInput.focus();
+    </script>
 </body>
 </html>
