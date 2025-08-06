@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Juriste Virtuel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .content h1, .content h2, .content h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .content h1 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .content h2 {
+            font-size: 1.4rem;
+        }
+
+        .content h3 {
+            font-size: 1.2rem;
+            color: #34495e;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .content ul, .content ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content li {
+            margin-bottom: 5px;
+        }
+
+        .content strong {
+            color: #2c3e50;
+        }
+
+        .content em {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .card-header, .content {
+                padding: 20px;
+            }
+
+            .content h1 {
+                font-size: 1.5rem;
+            }
+
+            .content h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="back-link">
+                <i class="fas fa-arrow-left"></i> Retour au Juriste Virtuel
+            </a>
+            <h1><i class="fas fa-balance-scale"></i> Juriste Virtuel</h1>
+            <p class="subtitle">Assistant Juridique Intelligent</p>
+        </header>
+
+        <div class="main-card">
+            <div class="card-header">
+                <h2><i class="fas fa-file-alt"></i> {{ title }}</h2>
+            </div>
+
+            <div class="content">
+                {{ content|safe }}
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>
+                <a href="/privacy_policy"><i class="fas fa-shield-alt"></i> Politique de Confidentialité</a>
+                <a href="/legal_notice"><i class="fas fa-gavel"></i> Mentions Légales</a>
+                <a href="/terms"><i class="fas fa-file-contract"></i> Conditions d'Utilisation</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                © 2024 Juriste Virtuel - Technologie d'Intelligence Artificielle
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
