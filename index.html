@@ -11,14 +11,6 @@
     
     <title>Juriste Virtuel - Your immediate legal response</title>
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-    
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
-    
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -328,6 +320,23 @@
             display: none;
         }
 
+        .demo-notice {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            color: #2d3436;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+
+        .demo-notice i {
+            color: #e17055;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
         .footer {
             margin-top: 50px;
             text-align: center;
@@ -417,24 +426,6 @@
             }
         }
 
-        /* PWA and Mobile App Styles */
-        @media (display-mode: standalone) {
-            .header {
-                padding-top: 40px;
-            }
-        }
-
-        /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --background-color: #1a202c;
-                --surface-color: #2d3748;
-                --text-primary: #f7fafc;
-                --text-secondary: #cbd5e0;
-                --border-color: #4a5568;
-            }
-        }
-
         /* Animations */
         .fade-in {
             animation: fadeIn 0.5s ease-in;
@@ -467,6 +458,13 @@
         </header>
 
         <main class="main-content">
+            <div class="demo-notice fade-in">
+                <i class="fas fa-info-circle"></i>
+                <span data-translate="demo_notice">
+                    Ceci est une version de démonstration. Pour accéder aux fonctionnalités complètes avec l'IA, veuillez configurer l'application Flask avec votre clé API OpenAI.
+                </span>
+            </div>
+
             <div class="card fade-in">
                 <div class="language-selector">
                     <label class="input-label" data-translate="language_label">Choisissez votre langue / Choose your language</label>
@@ -574,6 +572,7 @@
                 title: "Juriste Virtuel",
                 subtitle: "Solution Immédiate",
                 motto: "Votre réponse juridique immédiate",
+                demo_notice: "Ceci est une version de démonstration. Pour accéder aux fonctionnalités complètes avec l'IA, veuillez configurer l'application Flask avec votre clé API OpenAI.",
                 language_label: "Choisissez votre langue",
                 auto: "Auto",
                 question_label: "Posez votre question juridique :",
@@ -587,12 +586,14 @@
                 terms: "Conditions",
                 contact: "Contact",
                 error_no_question: "Veuillez saisir une question.",
-                error_communication: "Erreur de communication avec le serveur."
+                error_demo: "Ceci est une version de démonstration. Voici un exemple de réponse juridique générale.",
+                demo_response: "Merci pour votre question juridique. Dans cette version de démonstration, nous ne pouvons pas fournir de réponses personnalisées. Pour une assistance juridique complète, veuillez consulter un avocat qualifié. Cette application nécessite une clé API OpenAI pour fonctionner pleinement."
             },
             en: {
                 title: "Virtual Lawyer",
                 subtitle: "Immediate Solution",
                 motto: "Your immediate legal response",
+                demo_notice: "This is a demo version. To access full AI features, please configure the Flask application with your OpenAI API key.",
                 language_label: "Choose your language",
                 auto: "Auto",
                 question_label: "Ask your legal question:",
@@ -606,12 +607,14 @@
                 terms: "Terms",
                 contact: "Contact",
                 error_no_question: "Please enter a question.",
-                error_communication: "Communication error with the server."
+                error_demo: "This is a demo version. Here's a sample general legal response.",
+                demo_response: "Thank you for your legal question. In this demo version, we cannot provide personalized responses. For complete legal assistance, please consult a qualified lawyer. This application requires an OpenAI API key to function fully."
             },
             es: {
                 title: "Abogado Virtual",
                 subtitle: "Solución Inmediata",
                 motto: "Su respuesta legal inmediata",
+                demo_notice: "Esta es una versión de demostración. Para acceder a las funciones completas de IA, configure la aplicación Flask con su clave API de OpenAI.",
                 language_label: "Elija su idioma",
                 auto: "Auto",
                 question_label: "Haga su pregunta legal:",
@@ -625,12 +628,14 @@
                 terms: "Términos",
                 contact: "Contacto",
                 error_no_question: "Por favor ingrese una pregunta.",
-                error_communication: "Error de comunicación con el servidor."
+                error_demo: "Esta es una versión de demostración. Aquí hay una respuesta legal general de muestra.",
+                demo_response: "Gracias por su pregunta legal. En esta versión de demostración, no podemos proporcionar respuestas personalizadas. Para asistencia legal completa, consulte a un abogado calificado. Esta aplicación requiere una clave API de OpenAI para funcionar completamente."
             },
             ar: {
                 title: "المحامي الافتراضي",
                 subtitle: "حل فوري",
                 motto: "استجابتك القانونية الفورية",
+                demo_notice: "هذه نسخة تجريبية. للوصول إلى الميزات الكاملة للذكاء الاصطناعي، يرجى تكوين تطبيق Flask باستخدام مفتاح OpenAI API الخاص بك.",
                 language_label: "اختر لغتك",
                 auto: "تلقائي",
                 question_label: "اطرح سؤالك القانوني:",
@@ -644,12 +649,14 @@
                 terms: "الشروط",
                 contact: "اتصل",
                 error_no_question: "يرجى إدخال سؤال.",
-                error_communication: "خطأ في الاتصال مع الخادم."
+                error_demo: "هذه نسخة تجريبية. إليك نموذج للإجابة القانونية العامة.",
+                demo_response: "شكراً لسؤالك القانوني. في هذه النسخة التجريبية، لا يمكننا تقديم إجابات شخصية. للحصول على مساعدة قانونية كاملة، يرجى استشارة محامٍ مؤهل. يتطلب هذا التطبيق مفتاح OpenAI API للعمل بشكل كامل."
             },
             pt: {
                 title: "Advogado Virtual",
                 subtitle: "Solução Imediata",
                 motto: "Sua resposta legal imediata",
+                demo_notice: "Esta é uma versão de demonstração. Para acessar recursos completos de IA, configure a aplicação Flask com sua chave API OpenAI.",
                 language_label: "Escolha seu idioma",
                 auto: "Auto",
                 question_label: "Faça sua pergunta legal:",
@@ -663,12 +670,14 @@
                 terms: "Termos",
                 contact: "Contato",
                 error_no_question: "Por favor, digite uma pergunta.",
-                error_communication: "Erro de comunicação com o servidor."
+                error_demo: "Esta é uma versão de demonstração. Aqui está uma resposta legal geral de exemplo.",
+                demo_response: "Obrigado por sua pergunta legal. Nesta versão de demonstração, não podemos fornecer respostas personalizadas. Para assistência legal completa, consulte um advogado qualificado. Esta aplicação requer uma chave API OpenAI para funcionar completamente."
             },
             de: {
                 title: "Virtueller Anwalt",
                 subtitle: "Sofortige Lösung",
                 motto: "Ihre sofortige rechtliche Antwort",
+                demo_notice: "Dies ist eine Demo-Version. Um vollständige KI-Funktionen zu nutzen, konfigurieren Sie die Flask-Anwendung mit Ihrem OpenAI API-Schlüssel.",
                 language_label: "Wählen Sie Ihre Sprache",
                 auto: "Auto",
                 question_label: "Stellen Sie Ihre rechtliche Frage:",
@@ -682,12 +691,14 @@
                 terms: "Bedingungen",
                 contact: "Kontakt",
                 error_no_question: "Bitte geben Sie eine Frage ein.",
-                error_communication: "Kommunikationsfehler mit dem Server."
+                error_demo: "Dies ist eine Demo-Version. Hier ist eine allgemeine rechtliche Beispielantwort.",
+                demo_response: "Vielen Dank für Ihre rechtliche Frage. In dieser Demo-Version können wir keine personalisierten Antworten geben. Für umfassende rechtliche Hilfe konsultieren Sie bitte einen qualifizierten Anwalt. Diese Anwendung benötigt einen OpenAI API-Schlüssel für den vollständigen Betrieb."
             },
             it: {
                 title: "Avvocato Virtuale",
                 subtitle: "Soluzione Immediata",
                 motto: "La tua risposta legale immediata",
+                demo_notice: "Questa è una versione demo. Per accedere alle funzionalità complete dell'IA, configura l'applicazione Flask con la tua chiave API OpenAI.",
                 language_label: "Scegli la tua lingua",
                 auto: "Auto",
                 question_label: "Fai la tua domanda legale:",
@@ -701,12 +712,14 @@
                 terms: "Termini",
                 contact: "Contatto",
                 error_no_question: "Si prega di inserire una domanda.",
-                error_communication: "Errore di comunicazione con il server."
+                error_demo: "Questa è una versione demo. Ecco una risposta legale generale di esempio.",
+                demo_response: "Grazie per la tua domanda legale. In questa versione demo, non possiamo fornire risposte personalizzate. Per assistenza legale completa, consulta un avvocato qualificato. Questa applicazione richiede una chiave API OpenAI per funzionare completamente."
             },
             zh: {
                 title: "虚拟律师",
                 subtitle: "即时解决方案",
                 motto: "您的即时法律回应",
+                demo_notice: "这是演示版本。要访问完整的AI功能，请使用您的OpenAI API密钥配置Flask应用程序。",
                 language_label: "选择您的语言",
                 auto: "自动",
                 question_label: "提出您的法律问题：",
@@ -720,12 +733,14 @@
                 terms: "条款",
                 contact: "联系",
                 error_no_question: "请输入问题。",
-                error_communication: "与服务器通信错误。"
+                error_demo: "这是演示版本。这里是一般法律回复示例。",
+                demo_response: "感谢您的法律问题。在此演示版本中，我们无法提供个性化回复。如需完整的法律协助，请咨询合格的律师。此应用程序需要OpenAI API密钥才能完全运行。"
             },
             ru: {
                 title: "Виртуальный Юрист",
                 subtitle: "Немедленное Решение",
                 motto: "Ваш немедленный правовой ответ",
+                demo_notice: "Это демо-версия. Для доступа к полным возможностям ИИ настройте Flask-приложение с вашим OpenAI API ключом.",
                 language_label: "Выберите ваш язык",
                 auto: "Авто",
                 question_label: "Задайте ваш правовой вопрос:",
@@ -739,12 +754,14 @@
                 terms: "Условия",
                 contact: "Контакт",
                 error_no_question: "Пожалуйста, введите вопрос.",
-                error_communication: "Ошибка связи с сервером."
+                error_demo: "Это демо-версия. Вот пример общего правового ответа.",
+                demo_response: "Спасибо за ваш правовой вопрос. В этой демо-версии мы не можем предоставить персонализированные ответы. Для полной юридической помощи обратитесь к квалифицированному юристу. Это приложение требует OpenAI API ключ для полной работы."
             },
             ja: {
                 title: "バーチャル弁護士",
                 subtitle: "即座の解決策",
                 motto: "あなたの即座の法的回答",
+                demo_notice: "これはデモ版です。完全なAI機能にアクセスするには、OpenAI APIキーでFlaskアプリケーションを設定してください。",
                 language_label: "言語を選択してください",
                 auto: "自動",
                 question_label: "法的質問をしてください：",
@@ -758,7 +775,8 @@
                 terms: "利用規約",
                 contact: "お問い合わせ",
                 error_no_question: "質問を入力してください。",
-                error_communication: "サーバーとの通信エラー。"
+                error_demo: "これはデモ版です。一般的な法的回答の例です。",
+                demo_response: "法的質問をありがとうございます。このデモ版では、個別の回答を提供できません。完全な法的支援については、資格のある弁護士にご相談ください。このアプリケーションは完全に機能するためにOpenAI APIキーが必要です。"
             }
         };
 
@@ -782,13 +800,6 @@
             setupEventListeners();
             updateTranslations();
             updateCharCount();
-            
-            // PWA installation
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/static/sw.js')
-                    .then(registration => console.log('SW registered'))
-                    .catch(error => console.log('SW registration failed'));
-            }
         }
 
         function setupEventListeners() {
@@ -867,29 +878,13 @@
             setLoading(true);
             hideMessages();
 
-            try {
-                const response = await fetch('/ask', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        question: question,
-                        language: currentLanguage
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.error) {
-                    showError(data.error);
-                } else {
-                    showResponse(data.answer);
-                    showSuccess();
-                }
-            } catch (error) {
-                showError(getCurrentTranslation('error_communication'));
-            } finally {
+            // Simulate a demo response since this is a standalone version
+            setTimeout(() => {
+                const demoResponse = getCurrentTranslation('demo_response');
+                showResponse(demoResponse);
+                showSuccess();
                 setLoading(false);
-            }
+            }, 2000);
         }
 
         function getCurrentTranslation(key) {
@@ -936,14 +931,6 @@
 
         // Initialize app when DOM is ready
         document.addEventListener('DOMContentLoaded', init);
-
-        // PWA before install prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            // Show install button if needed
-        });
     </script>
 </body>
 </html>
