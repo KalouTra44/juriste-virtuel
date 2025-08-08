@@ -12,7 +12,8 @@ from typing import Any, Dict
 from flask import Flask, render_template, request, jsonify
 
 try:
-    import openai  # type: ignore
+    # OpenAI SDK v1
+    from openai import OpenAI  # type: ignore
 except ImportError as e:  # pragma: no cover
     raise RuntimeError(
         "Le module 'openai' est nécessaire mais n'est pas installé. "
@@ -25,7 +26,7 @@ app = Flask(__name__)
 # Configurez la clé API à partir de la variable d'environnement.  Si la clé
 # n'est pas définie, l'application lèvera une erreur lorsqu'elle tentera de
 # contacter l'API OpenAI.
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Message système pour définir le ton et les limites de l'assistant.  Le
 # modèle est invité à fournir des informations générales et à rappeler à
@@ -57,7 +58,7 @@ def ask() -> Any:
     if not question:
         return jsonify({"error": "Aucune question fournie."}), 400
     try:
-        completion = openai.ChatCompletion.create(
+        completion = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
@@ -66,7 +67,7 @@ def ask() -> Any:
             temperature=0.7,
             max_tokens=512,
         )
-        answer: str = completion.choices[0].message["content"].strip()
+        answer: str = (completion.choices[0].message.content or "").strip()
     except Exception:
         # Masquer les détails spécifiques des exceptions pour éviter de divulguer des
         # informations internes ou la configuration de l'API.
