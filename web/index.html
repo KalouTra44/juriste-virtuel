@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mobile App</title>
+  <meta name="description" content="Welcome to our mobile app. Download on the App Store and Google Play." />
+  <style>
+    :root { --bg: #0b132b; --fg: #e0e6f8; --accent: #5bc0be; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: linear-gradient(180deg, #0b132b, #1c2541); color: var(--fg); }
+    .container { max-width: 880px; margin: 0 auto; padding: 48px 20px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    header h1 { font-size: 22px; margin: 0; letter-spacing: 0.3px; }
+    main { display: grid; grid-template-columns: 1fr; gap: 28px; padding: 48px 0; }
+    .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 32px; align-items: center; }
+    .card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 22px; }
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    a.button { text-decoration: none; background: var(--accent); color: #081229; padding: 10px 14px; border-radius: 10px; font-weight: 600; border: 1px solid rgba(255,255,255,0.2); }
+    a.ghost { background: transparent; color: var(--fg); border: 1px solid rgba(255,255,255,0.3); }
+    footer { opacity: 0.7; font-size: 13px; padding: 24px 0; border-top: 1px solid rgba(255,255,255,0.12); }
+    img.mock { width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 10px 40px rgba(0,0,0,0.35); }
+    @media (max-width: 820px) { .hero { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Mobile App</h1>
+      <nav>
+        <a class="button ghost" href="#download">Download</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card">
+          <h2 style="margin-top:0">A clean starter for your product</h2>
+          <p>Cross-platform app (iOS, Android, Web). Ship fast with OTA updates, scalable hosting, and store deployments.</p>
+          <div class="cta" id="download">
+            <a class="button" href="#app-store" aria-label="App Store">App Store (soon)</a>
+            <a class="button ghost" href="#google-play" aria-label="Google Play">Google Play (soon)</a>
+          </div>
+        </div>
+        <div>
+          <img class="mock" src="https://images.unsplash.com/photo-1557264337-e8a93017fe92?q=80&w=1200&auto=format&fit=crop" alt="App preview" />
+        </div>
+      </section>
+
+      <section class="card">
+        <h3 style="margin-top:0">Privacy & Legal</h3>
+        <ul>
+          <li><a href="../privacy_policy.md">Privacy Policy</a></li>
+          <li><a href="../terms_conditions.md">Terms & Conditions</a></li>
+          <li><a href="../legal_notice.md">Legal Notice</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="y"></span> Mobile App. All rights reserved.
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+</body>
+</html>
